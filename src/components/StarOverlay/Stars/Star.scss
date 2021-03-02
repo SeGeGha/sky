@@ -1,0 +1,143 @@
+@function multiple-box-shadow ($n) {
+  $value: '#{random(2000)}px #{random(2000)}px #FFF';
+
+  @for $i from 2 through $n {
+    $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+  }
+
+  @return unquote($value);
+}
+
+@mixin starFill($size, $box-shadow, $animation-duration) {
+  width: $size;
+  height: $size;
+  box-shadow: $box-shadow;
+  animation: moveStar $animation-duration linear infinite;
+
+  &::after {
+    width: $size;
+    height: $size;
+    box-shadow: $box-shadow;
+  }
+}
+
+// star filling property
+$shadows-small: multiple-box-shadow(700);
+$shadows-medium: multiple-box-shadow(200);
+$shadows-big: multiple-box-shadow(100);
+$star-speed: 50s;
+// star falling property
+$shooting-time: 2000ms;
+
+.star {
+  &-filling {
+    background: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 2000px;
+      background: transparent;
+    }
+
+    &--small {
+      @include starFill(1px, $shadows-small, $star-speed);
+    }
+
+    &--medium {
+      @include starFill(2px, $shadows-medium, $star-speed*2);
+    }
+
+    &--large {
+      @include starFill(3px, $shadows-big, $star-speed*3);
+    }
+  }
+
+  &-falling {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(-45deg, #ffffff, #0000ff00);
+    border-radius: 100%;
+    filter: drop-shadow(0 0 6px #ffffff);
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 1px);
+      right: 0;
+      height: 100%;
+      background: linear-gradient(-45deg, #0000ff00, #d5e072, #2c2ca000);
+      transform: translateX(50%) rotateZ(45deg);
+      border-radius: 100%;
+    }
+
+    &::after {
+      transform: translateX(50%) rotateZ(-45deg);
+    }
+  }
+
+  &-wrapper {
+    position: relative;
+    width: 200px;
+    transform: rotate(45deg);
+  }
+}
+
+.shooting {
+  animation: tail $shooting-time ease-in-out, shooting $shooting-time ease-in-out;
+
+  &::before,
+  &::after {
+    animation: shining $shooting-time ease-in-out;
+    animation-delay: inherit;
+  }
+}
+
+@keyframes moveStar {
+  from {
+    transform: translateY(0px)
+  }
+
+  to {
+    transform: translateY(-2000px)
+  }
+}
+
+@keyframes tail {
+  0% {
+    width: 0;
+  }
+
+  30% {
+    width: 100px;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes shining {
+  0% {
+    width: 0;
+  }
+
+  50% {
+    width: 30px;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes shooting {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(300px);
+  }
+}

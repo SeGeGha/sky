@@ -1,22 +1,7 @@
 .sky-overlay {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-    overflow: hidden;
-
-    .stars {
-      &-filling,
-      &-falling {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-
-      &-falling {
-        transform: rotate(45deg);
-      }
-    }
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  overflow: hidden;
 }
