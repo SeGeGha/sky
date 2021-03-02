@@ -12,7 +12,7 @@
   width: $size;
   height: $size;
   box-shadow: $box-shadow;
-  animation: moveStar $animation-duration linear infinite;
+  animation: traffic $animation-duration linear infinite;
 
   &::after {
     width: $size;
@@ -94,7 +94,7 @@ $shooting-time: 2000ms;
   }
 }
 
-@keyframes moveStar {
+@keyframes traffic {
   from {
     transform: translateY(0px)
   }
